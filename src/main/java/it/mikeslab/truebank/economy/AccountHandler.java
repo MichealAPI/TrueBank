@@ -34,12 +34,13 @@ public class AccountHandler {
         return null;
     }
 
-    public boolean saveOrUpdateCreditCard(UUID holderUUID, Integer cardTypeID, Integer securityPIN, Double balance, String cardNumber) {
-        CreditCard creditCard = fromUUID(holderUUID);
-        cardTypeID = getUpdatedValue(cardTypeID, creditCard.getCardTypeID());
-        securityPIN = getUpdatedValue(securityPIN, creditCard.getSecurityPIN());
+    public boolean saveOrUpdateCreditCard(UUID holderUUID, Double balance, CreditCard creditCard) {
+        CreditCard oldCreditCard = fromUUID(holderUUID);
+
+        int cardTypeID = getUpdatedValue(creditCard.getCardTypeID(), oldCreditCard.getCardTypeID());
+        int securityPIN = getUpdatedValue(creditCard.getSecurityPIN(), oldCreditCard.getSecurityPIN());
         balance = getUpdatedValue(balance, instance.getBalanceHandler().getBalance(holderUUID));
-        cardNumber = getUpdatedValue(cardNumber, creditCard.getCardNumber());
+        String cardNumber = getUpdatedValue(creditCard.getCardNumber(), oldCreditCard.getCardNumber());
 
         String query = "INSERT OR REPLACE INTO CreditCards (HolderUUID, CardTypeID, SecurityPIN, Balance, CardNumber) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = sqLiteDBUtil.prepareStatement(query, holderUUID.toString(), cardTypeID, securityPIN, balance, cardNumber)) {
