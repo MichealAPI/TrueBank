@@ -3,7 +3,6 @@ package it.mikeslab.truebank.creditcard;
 import it.mikeslab.truebank.TrueBank;
 import it.mikeslab.truebank.model.CardType;
 import it.mikeslab.truebank.model.Icon;
-import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.HashMap;
@@ -52,12 +51,7 @@ public class CardTypeHandler {
         Icon icon;
 
         try {
-            icon = new Icon(
-                    Material.getMaterial(section.getString("icon.material")),
-                    section.getString("icon.displayName"),
-                    section.getStringList("icon.lore"),
-                    section.getInt("icon.modelData", -1)
-            );
+            icon = Icon.fromConfig(section.getConfigurationSection("icon"));
         } catch (NullPointerException e) {
             instance.logError(
                     Level.WARNING,

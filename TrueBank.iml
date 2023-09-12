@@ -9,7 +9,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_17">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -35,5 +35,6 @@
     <orderEntry type="library" name="Maven: co.aikar:acf-bukkit:0.5.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: de.themoep:inventorygui:1.6.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: net.wesjd:anvilgui:1.9.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.github.MilkBowl:VaultAPI:1.7.1" level="project" />
   </component>
 </module>

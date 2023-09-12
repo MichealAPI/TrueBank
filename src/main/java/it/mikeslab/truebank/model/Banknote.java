@@ -5,10 +5,9 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-public class CreditCard {
+public class Banknote {
 
-    private final int cardTypeID;
-    private final int securityPIN;
-    private final String cardNumber;
+    private final double value;
+    private final Icon icon;
 
 }

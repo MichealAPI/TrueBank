@@ -25,7 +25,8 @@ public class AccountHandler {
             if (resultSet.next()) {
                 int cardTypeID = resultSet.getInt("CardTypeID");
                 int securityPIN = resultSet.getInt("SecurityPIN");
-                return new CreditCard(cardTypeID, securityPIN);
+                String cardNumber = resultSet.getString("CardNumber");
+                return new CreditCard(cardTypeID, securityPIN, cardNumber);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -33,17 +34,15 @@ public class AccountHandler {
         return null;
     }
 
-
-
-
-    public boolean saveOrUpdateCreditCard(UUID holderUUID, Integer cardTypeID, Integer securityPIN, Double balance) {
+    public boolean saveOrUpdateCreditCard(UUID holderUUID, Integer cardTypeID, Integer securityPIN, Double balance, String cardNumber) {
         CreditCard creditCard = fromUUID(holderUUID);
         cardTypeID = getUpdatedValue(cardTypeID, creditCard.getCardTypeID());
         securityPIN = getUpdatedValue(securityPIN, creditCard.getSecurityPIN());
         balance = getUpdatedValue(balance, instance.getBalanceHandler().getBalance(holderUUID));
+        cardNumber = getUpdatedValue(cardNumber, creditCard.getCardNumber());
 
-        String query = "INSERT OR REPLACE INTO CreditCards (HolderUUID, CardTypeID, SecurityPIN, Balance) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement preparedStatement = sqLiteDBUtil.prepareStatement(query, holderUUID.toString(), cardTypeID, securityPIN, balance)) {
+        String query = "INSERT OR REPLACE INTO CreditCards (HolderUUID, CardTypeID, SecurityPIN, Balance, CardNumber) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = sqLiteDBUtil.prepareStatement(query, holderUUID.toString(), cardTypeID, securityPIN, balance, cardNumber)) {
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
@@ -51,6 +50,7 @@ public class AccountHandler {
         }
         return false;
     }
+
 
 
     private <T> T getUpdatedValue(T newValue, T defaultValue) {

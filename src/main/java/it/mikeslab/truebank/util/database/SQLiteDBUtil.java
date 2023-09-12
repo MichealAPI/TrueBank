@@ -104,7 +104,8 @@ public class SQLiteDBUtil {
                 "HolderUUID TEXT PRIMARY KEY," +
                 "CardTypeID INTEGER," +
                 "SecurityPIN INTEGER," +
-                "Balance REAL);";
+                "Balance REAL," +
+                "CardNumber TEXT);";
         this.executeQuery(query);
     }
 

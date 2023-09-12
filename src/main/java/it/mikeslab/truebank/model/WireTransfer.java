@@ -11,7 +11,9 @@ public class WireTransfer {
 
     private final double amount;
 
-    private final UUID from, to;
+    private final UUID fromUUID, toUUID;
+
+    private final String fromName, toName;
 
 
 

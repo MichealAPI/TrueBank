@@ -40,11 +40,16 @@ public class TransactionHandler {
              ResultSet resultSet = preparedStatement.executeQuery()) {
             if (resultSet.next()) {
                 String description = resultSet.getString("Description");
-                double amount = resultSet.getDouble("Amount");
-                long currentMillis = resultSet.getTimestamp("TransactionDate").getTime();
                 String sender = resultSet.getString("Sender");
                 String receiver = resultSet.getString("Receiver");
-                return new Transaction(id, description, amount, sender, receiver, currentMillis);
+                double amount = resultSet.getDouble("Amount");
+                long currentMillis = resultSet.getTimestamp("TransactionDate").getTime();
+
+                Transaction transaction = new Transaction(description, amount, sender, receiver);
+                transaction.setId(id);
+                transaction.setCurrentMillis(currentMillis);
+
+                return transaction;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,7 +77,12 @@ public class TransactionHandler {
                 String receiver = resultSet.getString("Receiver");
                 double amount = resultSet.getDouble("Amount");
                 long currentMillis = resultSet.getTimestamp("TransactionDate").getTime();
-                transactions.add(new Transaction(transactionID, description, amount, sender, receiver, currentMillis));
+
+                Transaction transaction = new Transaction(description, amount, sender, receiver);
+                transaction.setId(transactionID);
+                transaction.setCurrentMillis(currentMillis);
+
+                transactions.add(transaction);
             }
         } catch (SQLException e) {
             e.printStackTrace();

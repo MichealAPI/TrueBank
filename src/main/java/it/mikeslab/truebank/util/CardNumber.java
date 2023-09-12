@@ -25,8 +25,6 @@ public class CardNumber {
 
         return new CardNumber(stringBuilder.toString());
     }
-
-    // TODO: This is the only method that I need from there, you can then delete this class entirely
     public static int generateSecurityPin() {
         Random random = new Random();
         return 1000 + random.nextInt(9000); // Generates a random 4-digit PIN (between 1000 and 9999).

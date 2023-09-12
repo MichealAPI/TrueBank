@@ -1,21 +1,19 @@
 package it.mikeslab.truebank.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 
 @Data
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class Transaction {
 
-    private int transactionID;
+    private int id = -1;
 
     private final String description;
     private final double amount;
 
     private final String sender, receiver;
 
-    private final long currentMillis;
+    private long currentMillis;
 
 }
