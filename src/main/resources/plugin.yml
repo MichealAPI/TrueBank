@@ -1,0 +1,4 @@
+name: TrueBank
+version: '${project.version}'
+main: it.mikeslab.truebank.TrueBank
+api-version: 1.20
