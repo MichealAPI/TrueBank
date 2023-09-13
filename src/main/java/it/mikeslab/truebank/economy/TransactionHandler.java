@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -83,6 +84,10 @@ public class TransactionHandler {
                 transaction.setCurrentMillis(currentMillis);
 
                 transactions.add(transaction);
+
+                // Sorting by ascending (Date)
+                transactions.sort(Comparator.comparing(Transaction::getCurrentMillis));
+
             }
         } catch (SQLException e) {
             e.printStackTrace();

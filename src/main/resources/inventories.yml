@@ -1,0 +1,25 @@
+company-perms:
+  perms-menu-info-element:
+    material: PAPER
+    displayName: "&#FFA800&lInfos"
+    lore:
+      - "&7Click to &cdisable &7or &aenable &7a specific"
+      - "&7Permission for your &eGroup&7."
+player-selector:
+  info-book:
+    material: BOOK
+    displayName: "&#FFA800&lInfos"
+    lore:
+      - "&7Click over an head to select"
+      - "&7The related &ePlayer&7."
+confirm-menu:
+  confirm:
+    material: GREEN_STAINED_GLASS_PANE
+    displayName: "&#00FF00&lConfirm"
+    lore:
+      - "&7Click to &aconfirm &7your action."
+  cancel:
+    material: RED_STAINED_GLASS_PANE
+    displayName: "&#FF0000&lCancel"
+    lore:
+      - "&7Click to &ccancel &7your action."

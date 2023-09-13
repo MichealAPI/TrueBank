@@ -34,16 +34,16 @@ public class AccountHandler {
         return null;
     }
 
-    public boolean saveOrUpdateCreditCard(UUID holderUUID, Double balance, CreditCard creditCard) {
+    public boolean saveOrUpdateCreditCard(UUID holderUUID, CreditCard updatedCreditCard) {
         CreditCard oldCreditCard = fromUUID(holderUUID);
 
-        int cardTypeID = getUpdatedValue(creditCard.getCardTypeID(), oldCreditCard.getCardTypeID());
-        int securityPIN = getUpdatedValue(creditCard.getSecurityPIN(), oldCreditCard.getSecurityPIN());
-        balance = getUpdatedValue(balance, instance.getBalanceHandler().getBalance(holderUUID));
-        String cardNumber = getUpdatedValue(creditCard.getCardNumber(), oldCreditCard.getCardNumber());
+        // #GetUpdatedValue allows to check and ignore parameters containing -1/null, which means "keep old value"
+        int cardTypeID = getUpdatedValue(updatedCreditCard.getCardTypeID(), oldCreditCard.getCardTypeID());
+        int securityPIN = getUpdatedValue(updatedCreditCard.getSecurityPIN(), oldCreditCard.getSecurityPIN());
+        String cardNumber = getUpdatedValue(updatedCreditCard.getCardNumber(), oldCreditCard.getCardNumber());
 
-        String query = "INSERT OR REPLACE INTO CreditCards (HolderUUID, CardTypeID, SecurityPIN, Balance, CardNumber) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement preparedStatement = sqLiteDBUtil.prepareStatement(query, holderUUID.toString(), cardTypeID, securityPIN, balance, cardNumber)) {
+        String query = "INSERT OR REPLACE INTO CreditCards (HolderUUID, CardTypeID, SecurityPIN, CardNumber) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = sqLiteDBUtil.prepareStatement(query, holderUUID.toString(), cardTypeID, securityPIN, cardNumber)) {
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {

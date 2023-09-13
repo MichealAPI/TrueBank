@@ -39,13 +39,12 @@ public class BanknoteMenu {
     }
 
 
-    public CompletableFuture<Banknote> showBanknoteSelector(Player player, ItemStack creditCardItemStack) {
+    public CompletableFuture<Banknote> showBanknoteSelector(Player player, OfflinePlayer cardHolderOfflinePlayer) {
         CompletableFuture<Banknote> future = new CompletableFuture<>();
 
         InventoryGui gui = new InventoryGui(instance, Language.getString(LangKey.BANKNOTE_SELECTOR_TITLE, false), menuSetup);
 
         // Balance Item
-        OfflinePlayer cardHolderOfflinePlayer = getOfflinePlayerFromCreditCard(creditCardItemStack);
 
         if(!cardHolderOfflinePlayer.hasPlayedBefore()) {
             future.completeExceptionally(new NullPointerException());

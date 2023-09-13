@@ -1,9 +1,10 @@
 package it.mikeslab.truebank;
 
+import it.mikeslab.truebank.atm.ATMHandler;
 import it.mikeslab.truebank.banknote.BanknoteHandler;
 import it.mikeslab.truebank.creditcard.CardTypeHandler;
 import it.mikeslab.truebank.economy.AccountHandler;
-import it.mikeslab.truebank.economy.BalanceHandler;
+import it.mikeslab.truebank.economy.CreditCardHandler;
 import it.mikeslab.truebank.economy.PlayerStatsHandler;
 import it.mikeslab.truebank.economy.TransactionHandler;
 import it.mikeslab.truebank.util.database.SQLiteDBUtil;
@@ -12,6 +13,8 @@ import lombok.Getter;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -27,11 +30,15 @@ public final class TrueBank extends JavaPlugin {
     private Economy economy;
 
     private AccountHandler accountHandler;
-    private BalanceHandler balanceHandler;
+    private ATMHandler atmHandler;
     private TransactionHandler transactionsHandler;
     private PlayerStatsHandler playerStatsHandler;
     private CardTypeHandler cardTypeHandler;
+    private CreditCardHandler creditCardHandler;
     private BanknoteHandler banknoteHandler;
+
+    private FileConfiguration menuConfiguration;
+
 
 
     @Override
@@ -62,7 +69,7 @@ public final class TrueBank extends JavaPlugin {
 
     private void setupHandlers() {
         this.accountHandler = new AccountHandler(sqLiteDBUtil, this);
-        this.balanceHandler = new BalanceHandler(sqLiteDBUtil);
+        this.atmHandler = new ATMHandler(this);
         this.transactionsHandler = new TransactionHandler(sqLiteDBUtil);
 
         this.playerStatsHandler = new PlayerStatsHandler();
@@ -70,10 +77,18 @@ public final class TrueBank extends JavaPlugin {
         this.cardTypeHandler = new CardTypeHandler(this);
 
         this.banknoteHandler = new BanknoteHandler(this);
+        this.creditCardHandler = new CreditCardHandler(this);
     }
 
     private void setupLanguages() {
         Language.initialize(this, getConfig().getString("language"));
+
+        // Inventories Language
+        String inventoryLangPath = "inventories.yml";
+        File inventoryLangFile = new File(getDataFolder(), inventoryLangPath);
+        Language.generateFile(inventoryLangFile, "inventories.yml");
+
+        this.menuConfiguration = YamlConfiguration.loadConfiguration(inventoryLangFile);
     }
 
 

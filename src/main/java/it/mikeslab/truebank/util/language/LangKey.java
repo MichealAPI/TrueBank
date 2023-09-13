@@ -71,7 +71,19 @@ public enum LangKey {
     BANKNOTE_VALUE("&#FF9600Value&#FF5400: &7%value%"),
     BANKNOTE_CLICK_SELECT("&#FFBA00(Click to withdraw)"),
     BALANCE("&aBalance"),
-    BALANCE_LORE("&7%balance%");
+    BALANCE_LORE("&7%balance%"),
+    TRANSACTION_MENU_TITLE("%target%'s transactions"),
+    TRANSACTION_DESCRIPTION("&fDescription&a: &7%description%"),
+    TRANSACTION_AMOUNT("&fAmount&a: &7%amount%"),
+    TRANSACTION_SENDER("&fSender&a: &7%sender%"),
+    TRANSACTION_RECEIVER("&fReceiver&a: &7%receiver%"),
+    TRANSACTION_ID("&fID&a: &7%id%"),
+    TRANSACTION_CLICK_DELETE("&c(Right-Click to Delete)"),
+    TRANSACTION_HEADER("&8Transaction"),
+    WRONG_PIN("Wrong PIN..."),
+    PIN_GUI_TITLE("Insert PIN"),
+    INVENTORY_FULL("&cYour Inventory is full! Cannot perform this action."),
+    HOLDER_WITHDRAW_LIMIT_REACHED("The account owner has reached the daily limit on withdrawals!");
 
     private final String defaultValue;
 
