@@ -25,7 +25,7 @@ public class PINMenu {
         this.instance = instance;
     }
 
-    public void showPinGui(Player subject, OfflinePlayer targetOfflinePlayer, int correctPin) {
+    public void showPinGui(Player subject, OfflinePlayer targetOfflinePlayer, String correctPin) {
 
         new AnvilGUI.Builder()
                 .onClick((slot, stateSnapshot) -> {

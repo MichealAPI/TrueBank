@@ -26,7 +26,7 @@ public class CreditCardHandler {
     }
 
 
-    public ItemStack generateCreditCard(CreditCard creditCard, UUID holderUUID) {
+    public ItemStack generateCardItemStack(CreditCard creditCard, UUID holderUUID) {
 
         int cardTypeID = creditCard.getCardTypeID();
         CardType cardType = instance.getCardTypeHandler().cardTypeMap.get(cardTypeID);

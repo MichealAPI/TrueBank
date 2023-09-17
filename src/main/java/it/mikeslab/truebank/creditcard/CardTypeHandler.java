@@ -71,6 +71,6 @@ public class CardTypeHandler {
         // Global limits
         double depositLimit = section.getDouble("depositLimit");
 
-        cardTypeMap.put(id, new CardType(icon, name, creationCost, dailyTransferLimit, dailyWithdrawLimit, dailyDepositLimit, depositLimit));
+        cardTypeMap.put(id, new CardType(id, icon, name, creationCost, dailyTransferLimit, dailyWithdrawLimit, dailyDepositLimit, depositLimit));
     }
 }

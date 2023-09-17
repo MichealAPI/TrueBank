@@ -1,12 +1,16 @@
 package it.mikeslab.truebank;
 
+import co.aikar.commands.BukkitCommandManager;
 import it.mikeslab.truebank.atm.ATMHandler;
 import it.mikeslab.truebank.banknote.BanknoteHandler;
+import it.mikeslab.truebank.command.BankCommand;
 import it.mikeslab.truebank.creditcard.CardTypeHandler;
 import it.mikeslab.truebank.economy.AccountHandler;
 import it.mikeslab.truebank.economy.CreditCardHandler;
 import it.mikeslab.truebank.economy.PlayerStatsHandler;
 import it.mikeslab.truebank.economy.TransactionHandler;
+import it.mikeslab.truebank.listener.ATMBlockListener;
+import it.mikeslab.truebank.listener.ATMInteractListener;
 import it.mikeslab.truebank.util.database.SQLiteDBUtil;
 import it.mikeslab.truebank.util.language.Language;
 import lombok.Getter;
@@ -15,6 +19,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -52,9 +57,13 @@ public final class TrueBank extends JavaPlugin {
 
         setupDatabase();
         setupHandlers();
+        setupListeners();
+        setupCommands();
         setupLanguages();
 
         startCardDailyLimitsCountdown();
+
+
     }
 
     @Override
@@ -80,6 +89,14 @@ public final class TrueBank extends JavaPlugin {
         this.creditCardHandler = new CreditCardHandler(this);
     }
 
+    private void setupListeners() {
+        PluginManager pluginManager = Bukkit.getPluginManager();
+
+        pluginManager.registerEvents(new ATMBlockListener(this), this);
+        pluginManager.registerEvents(new ATMInteractListener(this), this);
+
+    }
+
     private void setupLanguages() {
         Language.initialize(this, getConfig().getString("language"));
 
@@ -91,6 +108,15 @@ public final class TrueBank extends JavaPlugin {
         this.menuConfiguration = YamlConfiguration.loadConfiguration(inventoryLangFile);
     }
 
+    private void setupCommands() {
+
+        BukkitCommandManager commandManager = new BukkitCommandManager(this);
+
+        commandManager.enableUnstableAPI("help");
+
+        commandManager.registerCommand(new BankCommand(this));
+
+    }
 
     private void startCardDailyLimitsCountdown() {
         Bukkit.getScheduler().runTaskTimer(this, () -> {
@@ -124,10 +150,6 @@ public final class TrueBank extends JavaPlugin {
 
         // disable plug-in
         this.getPluginLoader().disablePlugin(this);
-    }
-
-    public void consoleRedError(String message) {
-        Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[" + this.getName() + "] " + message);
     }
 
 

@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CardType {
 
+    private final int id;
+
     private final Icon icon;
 
     private final String name;

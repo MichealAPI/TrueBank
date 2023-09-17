@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 public class CreditCard {
 
     private final int cardTypeID;
-    private final int securityPIN;
+    private final String securityPIN;
     private final String cardNumber;
 
 }

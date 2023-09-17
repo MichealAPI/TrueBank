@@ -15,7 +15,7 @@ import java.util.*;
 
 public class BanknoteHandler {
 
-    private final NamespacedKey banknoteNamespacedKey;
+    public final NamespacedKey banknoteNamespacedKey;
     private final TrueBank instance;
     public List<Banknote> banknoteMap;
 

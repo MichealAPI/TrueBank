@@ -103,7 +103,7 @@ public class SQLiteDBUtil {
         String query = "CREATE TABLE IF NOT EXISTS CreditCards (" +
                 "HolderUUID TEXT PRIMARY KEY," +
                 "CardTypeID INTEGER," +
-                "SecurityPIN INTEGER," +
+                "SecurityPIN TEXT," +
                 "CardNumber TEXT);";
         this.executeQuery(query);
     }

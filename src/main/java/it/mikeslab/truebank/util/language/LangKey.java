@@ -80,6 +80,8 @@ public enum LangKey {
     TRANSACTION_ID("&fID&a: &7%id%"),
     TRANSACTION_CLICK_DELETE("&c(Right-Click to Delete)"),
     TRANSACTION_HEADER("&8Transaction"),
+    TRANSACTION_BANKNOTE_DEPOSIT("Banknote Deposit"),
+    TRANSACTION_BANK("Bank"),
     WRONG_PIN("Wrong PIN..."),
     PIN_GUI_TITLE("Insert PIN"),
     INVENTORY_FULL("&cYour Inventory is full! Cannot perform this action."),

@@ -1,32 +1,32 @@
 package it.mikeslab.truebank.util;
 
+import it.mikeslab.truebank.model.CreditCard;
+
 import java.util.Random;
 
 public class CardNumber {
 
-    private final String cardNumber;
 
-    public CardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
+
+
+    public static CreditCard generate(int cardTypeID) {
+
+        String securityPIN = generateRandom(4); // todo Make customizable (?)
+        String creditCardNumber = generateRandom(16);
+
+        return new CreditCard(cardTypeID, securityPIN, creditCardNumber);
     }
 
-    public String getCardNumber() {
-        return cardNumber;
-    }
 
-    public static CardNumber generate() {
+    private static String generateRandom(int length) {
         StringBuilder stringBuilder = new StringBuilder();
         Random random = new Random();
 
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < length; i++) {
             int randomDigit = random.nextInt(10);
             stringBuilder.append(randomDigit);
         }
 
-        return new CardNumber(stringBuilder.toString());
-    }
-    public static int generateSecurityPin() {
-        Random random = new Random();
-        return 1000 + random.nextInt(9000); // Generates a random 4-digit PIN (between 1000 and 9999).
+        return stringBuilder.toString();
     }
 }

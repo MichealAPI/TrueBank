@@ -24,7 +24,7 @@ public class AccountHandler {
         try (ResultSet resultSet = sqLiteDBUtil.executeParamQuery(query, holderUUID.toString())) {
             if (resultSet.next()) {
                 int cardTypeID = resultSet.getInt("CardTypeID");
-                int securityPIN = resultSet.getInt("SecurityPIN");
+                String securityPIN = resultSet.getString("SecurityPIN");
                 String cardNumber = resultSet.getString("CardNumber");
                 return new CreditCard(cardTypeID, securityPIN, cardNumber);
             }
@@ -39,7 +39,7 @@ public class AccountHandler {
 
         // #GetUpdatedValue allows to check and ignore parameters containing -1/null, which means "keep old value"
         int cardTypeID = getUpdatedValue(updatedCreditCard.getCardTypeID(), oldCreditCard.getCardTypeID());
-        int securityPIN = getUpdatedValue(updatedCreditCard.getSecurityPIN(), oldCreditCard.getSecurityPIN());
+        String securityPIN = getUpdatedValue(updatedCreditCard.getSecurityPIN(), oldCreditCard.getSecurityPIN());
         String cardNumber = getUpdatedValue(updatedCreditCard.getCardNumber(), oldCreditCard.getCardNumber());
 
         String query = "INSERT OR REPLACE INTO CreditCards (HolderUUID, CardTypeID, SecurityPIN, CardNumber) VALUES (?, ?, ?, ?, ?)";
